@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Deafult Day Of A Deafult Cat</title>
+    <link rel="icon" href="иконка.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        hand: ['Caveat', 'cursive'],
+                    },
+                    colors: {
+                        paper: '#fdf6e3',
+                        paperDark: '#f5e6c8',
+                        ink: '#3c3226',
+                        inkLight: '#6b5d4d',
+                        redPin: '#e53935',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #fdf6e3;
+            background-image: 
+                url("data:image/svg+xml,%3Csvg width='40' height='40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h40v40H0z' fill='none'/%3E%3Cpath d='M0 20h40M20 0v40' stroke='%23e8dcc8' stroke-width='0.5'/%3E%3C/svg%3E");
+        }
+
+        .paper-texture {
+            background-color: #fefcf3;
+            box-shadow: 
+                2px 3px 7px rgba(0,0,0,0.1),
+                inset 0 0 60px rgba(0,0,0,0.02);
+            position: relative;
+        }
+
+        .torn-edge {
+            position: relative;
+        }
+        .torn-edge::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            right: 0;
+            height: 10px;
+            background: inherit;
+            clip-path: polygon(
+                0% 0%, 3% 40%, 6% 10%, 9% 50%, 12% 20%, 15% 60%, 
+                18% 30%, 21% 70%, 24% 15%, 27% 55%, 30% 25%, 33% 65%, 
+                36% 35%, 39% 75%, 42% 20%, 45% 50%, 48% 30%, 51% 60%, 
+                54% 10%, 57% 55%, 60% 25%, 63% 70%, 66% 40%, 69% 15%, 
+                72% 50%, 75% 30%, 78% 65%, 81% 20%, 84% 55%, 87% 35%, 
+                90% 70%, 93% 25%, 96% 50%, 100% 10%, 100% 100%, 0% 100%
+            );
+        }
+
+        .tape {
+            position: absolute;
+            width: 70px;
+            height: 18px;
+            background: rgba(255, 235, 59, 0.4);
+            border: 1px solid rgba(255, 235, 59, 0.25);
+            z-index: 10;
+        }
+        .tape-top {
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%) rotate(-2deg);
+        }
+        .tape-corner {
+            top: -6px;
+            right: 12px;
+            transform: rotate(35deg);
+            width: 40px;
+            height: 14px;
+        }
+
+        .pin {
+            width: 14px;
+            height: 14px;
+            background: radial-gradient(circle at 35% 35%, #ff6b6b, #e53935);
+            border-radius: 50%;
+            position: absolute;
+            top: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+            z-index: 10;
+        }
+        .pin::after {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 4px;
+            height: 4px;
+            background: radial-gradient(circle, rgba(255,255,255,0.6), transparent);
+            border-radius: 50%;
+        }
+
+        .tab-btn {
+            position: relative;
+            transition: all 0.2s ease;
+        }
+        .tab-btn::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 3px;
+            background: #e53935;
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+        .tab-btn.active::before,
+        .tab-btn:hover::before {
+            width: 80%;
+        }
+
+        .episode-card {
+            transition: all 0.3s ease;
+        }
+        .episode-card:hover {
+            transform: translateY(-4px) rotate(-0.5deg);
+            box-shadow: 3px 5px 12px rgba(0,0,0,0.15);
+        }
+
+        .social-btn {
+            transition: all 0.3s ease;
+        }
+        .social-btn:hover {
+            transform: rotate(-5deg) scale(1.1);
+        }
+
+        .section-page {
+            display: none;
+        }
+        .section-page.active {
+            display: block;
+        }
+
+        .notebook-lines {
+            background-image: repeating-linear-gradient(
+                transparent,
+                transparent 27px,
+                rgba(100, 149, 237, 0.2) 27px,
+                rgba(100, 149, 237, 0.2) 28px
+            );
+            background-position: 0 8px;
+        }
+
+        .margin-line {
+            border-left: 2px solid rgba(229, 57, 53, 0.3);
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f5e6c8;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #d4c4a8;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #b8a88c;
+        }
+
+        .video-placeholder {
+            background: #2a2520;
+            aspect-ratio: 16 / 9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+        }
+
+        .goal-item::before {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: #e53935;
+            border-radius: 50%;
+            margin-right: 10px;
+            flex-shrink: 0;
+            margin-top: 6px;
+        }
+        .goal-item {
+            display: flex;
+            align-items: flex-start;
+        }
+    </style>
+</head>
+<body class="min-h-screen font-sans text-ink" style="font-family: system-ui, -apple-system, sans-serif;">
+
+    <!-- Header -->
+    <header class="relative py-6 md:py-10 overflow-hidden">
+        <div class="max-w-5xl mx-auto px-4 text-center relative z-10">
+            <div class="paper-texture inline-block px-8 py-4 md:px-16 md:py-6 torn-edge relative" style="transform: rotate(-1deg);">
+                <div class="tape tape-top"></div>
+                <h1 class="font-hand text-4xl md:text-6xl lg:text-7xl font-bold text-ink leading-tight">
+                    A Deafult Day Of A Deafult Cat
+                </h1>
+                <p class="text-lg md:text-xl text-inkLight mt-2">
+                    придумываем, рисуем, создаём, снимаем, монтируем
+                </p>
+                <p class="text-lg md:text-xl text-inkLight mt-2">
+                    всё с душой
+                </p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="max-w-5xl mx-auto px-4 mb-8 relative z-20">
+        <div class="paper-texture rounded-sm p-1 md:p-2 relative">
+            <div class="flex flex-wrap justify-center gap-1 md:gap-2">
+                <button class="tab-btn active font-sans text-base md:text-lg px-3 md:px-5 py-2 rounded-sm hover:bg-amber-100 transition-colors" data-tab="episodes">
+                    Серии
+                </button>
+                <button class="tab-btn font-sans text-base md:text-lg px-3 md:px-5 py-2 rounded-sm hover:bg-pink-100 transition-colors" data-tab="news">
+                    Новости
+                </button>
+                <button class="tab-btn font-sans text-base md:text-lg px-3 md:px-5 py-2 rounded-sm hover:bg-blue-100 transition-colors" data-tab="contact">
+                    Контакт
+                </button>
+                <button class="tab-btn font-sans text-base md:text-lg px-3 md:px-5 py-2 rounded-sm hover:bg-green-100 transition-colors" data-tab="thanks">
+                    Благодарности
+                </button>
+                <button class="tab-btn font-sans text-base md:text-lg px-3 md:px-5 py-2 rounded-sm hover:bg-purple-100 transition-colors" data-tab="about-project">
+                    О проекте
+                </button>
+                <button class="tab-btn font-sans text-base md:text-lg px-3 md:px-5 py-2 rounded-sm hover:bg-orange-100 transition-colors" data-tab="authors">
+                    Об авторах
+                </button>
+                <button class="tab-btn font-sans text-base md:text-lg px-3 md:px-5 py-2 rounded-sm hover:bg-amber-100 transition-colors" data-tab="history">
+                    История создания
+                </button>
+                <button class="tab-btn font-sans text-base md:text-lg px-3 md:px-5 py-2 rounded-sm hover:bg-yellow-100 transition-colors" data-tab="social">
+                    Соцсети
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-5xl mx-auto px-4 pb-16 relative z-10">
+
+        <!-- ========== СЕРИИ ========== -->
+        <div id="episodes" class="section-page active">
+            <div class="mb-6 relative">
+                <h2 class="font-hand text-3xl md:text-4xl font-bold inline-block relative">
+                    Серии
+                    <span class="absolute -bottom-1 left-0 right-0 h-1 bg-redPin/30 rounded"></span>
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6" id="episodes-grid">
+            </div>
+        </div>
+
+        <!-- ========== НОВОСТИ ========== -->
+        <div id="news" class="section-page">
+            <div class="mb-6">
+                <h2 class="font-hand text-3xl md:text-4xl font-bold inline-block relative">
+                    Новости
+                    <span class="absolute -bottom-1 left-0 right-0 h-1 bg-redPin/30 rounded"></span>
+                </h2>
+            </div>
+
+            <div id="news-container" class="space-y-6"></div>
+        </div>
+
+        <!-- ========== КОНТАКТ ========== -->
+        <div id="contact" class="section-page">
+            <div class="mb-6">
+                <h2 class="font-hand text-3xl md:text-4xl font-bold inline-block relative">
+                    Контакт с авторами
+                    <span class="absolute -bottom-1 left-0 right-0 h-1 bg-redPin/30 rounded"></span>
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Contact Form -->
+                <div class="paper-texture p-5 md:p-6 relative notebook-lines" style="transform: rotate(-0.5deg);">
+                    <h3 class="font-hand text-2xl font-bold mb-4 pl-4 margin-line">Напишите нам</h3>
+                    <form id="contact-form" class="space-y-4 pl-4 margin-line" onsubmit="handleSubmit(event)">
+                        <div>
+                            <label class="text-inkLight block mb-1 text-sm">Ваше имя:</label>
+                            <input type="text" name="Имя" placeholder="Как вас зовут?" required class="w-full bg-transparent border-b-2 border-inkLight/30 focus:border-redPin outline-none py-1 text-lg transition-colors">
+                        </div>
+                        <div>
+                            <label class="text-inkLight block mb-1 text-sm">Email:</label>
+                            <input type="email" name="Email" placeholder="your@email.com" required class="w-full bg-transparent border-b-2 border-inkLight/30 focus:border-redPin outline-none py-1 text-lg transition-colors">
+                        </div>
+                        <div>
+                            <label class="text-inkLight block mb-1 text-sm">Тема:</label>
+                            <select name="Тема" class="w-full bg-paper py-1 text-lg border-b-2 border-inkLight/30 outline-none focus:border-redPin transition-colors">
+                                <option>Общий вопрос</option>
+                                <option>Сотрудничество</option>
+                                <option>Ошибка на сайте</option>
+                                <option>Идея для серии</option>
+                                <option>Предложение</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="text-inkLight block mb-1 text-sm">Сообщение:</label>
+                            <textarea name="Сообщение" rows="4" placeholder="Пишите что думаете..." required class="w-full bg-transparent border border-inkLight/20 focus:border-redPin outline-none py-2 px-2 text-lg rounded-sm resize-none transition-colors"></textarea>
+                        </div>
+                        <button type="submit" id="submit-btn" class="font-hand text-xl bg-redPin text-white px-6 py-2 rounded-sm hover:bg-redPin/80 transition-colors shadow-md hover:shadow-lg active:transform active:scale-95">
+                            Отправить
+                        </button>
+                    </form>
+                    <div id="form-success" class="hidden mt-4 pl-4 margin-line">
+                        <div class="paper-texture p-3 inline-block relative">
+                            <p class="text-green-700">✅ Сообщение отправлено! Мы ответим скоро.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Cards -->
+                <div class="space-y-4">
+                    <div class="paper-texture p-4 relative" style="transform: rotate(1deg);">
+                        <div class="flex items-center gap-3">
+                            <div class="w-14 h-14 rounded-full bg-paperDark overflow-hidden flex-shrink-0">
+                                <img src="images/ваня.jpg" alt="Черепанов Иван" class="w-full h-full object-cover" style="filter: sepia(0.2);">
+                            </div>
+                            <div>
+                                <h4 class="font-hand text-xl font-bold">Черепанов Иван</h4>
+                                <p class="text-inkLight text-sm">автор котиков, главный актёр озвучки, сценарист</p>
+                                <p class="text-inkLight/70 text-xs mt-1">vanya.che7428@gmail.com</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="paper-texture p-4 relative" style="transform: rotate(-1.5deg);">
+                        <div class="flex items-center gap-3">
+                            <div class="w-14 h-14 rounded-full bg-paperDark overflow-hidden flex-shrink-0">
+                                <img src="images/федя.jpg" alt="Иванов Фёдор" class="w-full h-full object-cover" style="filter: sepia(0.2);">
+                            </div>
+                            <div>
+                                <h4 class="font-hand text-xl font-bold">Иванов Фёдор</h4>
+                                <p class="text-inkLight text-sm">создатель сцен, создатель 3-D моделей</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="paper-texture p-4 relative" style="transform: rotate(0.8deg);">
+                        <div class="flex items-center gap-3">
+                            <div class="w-14 h-14 rounded-full bg-paperDark overflow-hidden flex-shrink-0">
+                                <img src="images/даня.jpg" alt="Алексеев Данила" class="w-full h-full object-cover" style="filter: sepia(0.2);">
+                            </div>
+                            <div>
+                                <h4 class="font-hand text-xl font-bold">Алексеев Данила</h4>
+                                <p class="text-inkLight text-sm">режиссёр, оператор, монтажёр, звукорежиссёр</p>
+                                <p class="text-inkLight/70 text-xs mt-1">fogokopohouobo@mail.ru</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="paper-texture p-4 relative" style="transform: rotate(-0.5deg);">
+                        <div class="flex items-center gap-3">
+                            <div class="w-14 h-14 rounded-full bg-paperDark overflow-hidden flex-shrink-0">
+                                <img src="images/мария.jpg" alt="Сухова Мария" class="w-full h-full object-cover" style="filter: sepia(0.2);">
+                            </div>
+                            <div>
+                                <h4 class="font-hand text-xl font-bold">Сухова Мария</h4>
+                                <p class="text-inkLight text-sm">мотиватор, учительница по английскому</p>
+                                <p class="text-inkLight/70 text-xs mt-1">m.v.sukhova@gmail.com</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="paper-texture p-4 relative" style="transform: rotate(1.2deg);">
+                        <div class="flex items-center gap-3">
+                            <div class="w-14 h-14 rounded-full bg-paperDark overflow-hidden flex-shrink-0">
+                                <img src="images/таля.jpg" alt="Иваненко Тальяна" class="w-full h-full object-cover" style="filter: sepia(0.2);">
+                            </div>
+                            <div>
+                                <h4 class="font-hand text-xl font-bold">Иваненко Тальяна</h4>
+                                <p class="text-inkLight text-sm">актёр озвучки, художник</p>
+                                <p class="text-inkLight/70 text-xs mt-1">katkotket333@yandex.ru</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="paper-texture p-4 relative" style="transform: rotate(-0.8deg);">
+                        <div class="flex items-center gap-3">
+                            <div class="w-14 h-14 rounded-full bg-paperDark overflow-hidden flex-shrink-0">
+                                <img src="images/поля.jpg" alt="Сухарева Полина" class="w-full h-full object-cover" style="filter: sepia(0.2);">
+                            </div>
+                            <div>
+                                <h4 class="font-hand text-xl font-bold">Сухарева Полина</h4>
+                                <p class="text-inkLight text-sm">помощник по сценам, актёр озвучки</p>
+                                <p class="text-inkLight/70 text-xs mt-1">sukhareva.pa@gmail.com</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== БЛАГОДАРНОСТИ ========== -->
+        <div id="thanks" class="section-page">
+            <div class="mb-6">
+                <h2 class="font-hand text-3xl md:text-4xl font-bold inline-block relative">
+                    Благодарности
+                    <span class="absolute -bottom-1 left-0 right-0 h-1 bg-redPin/30 rounded"></span>
+                </h2>
+            </div>
+
+            <div class="paper-texture p-6 md:p-8 relative notebook-lines mb-6" style="transform: rotate(-0.3deg);">
+                <div class="tape tape-top" style="width: 100px; transform: translateX(-50%) rotate(1deg);"></div>
+                <div class="pl-4 margin-line">
+                    <p class="text-xl md:text-2xl leading-relaxed">
+                        Спасибо всем кто помогал нам всё это время. Этот мультик не существовал бы без вас.
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                <!-- Thank you cards -->
+                <div class="paper-texture p-4 relative" style="transform: rotate(1.5deg);">
+                    <h4 class="font-hand text-xl font-bold">Спонсорам</h4>
+                    <p class="text-inkLight mt-2">Всем кто как-либо помог проекту не важно, материально или другой поддержкой спасибо.</p>
+                </div>
+
+                <div class="paper-texture p-4 relative" style="transform: rotate(-2deg);">
+                    <h4 class="font-hand text-xl font-bold">Семьям</h4>
+                    <p class="text-inkLight mt-2">Нашим семьям за терпение, поддержку и за то, что выслушивали все наши истории, спасибо.</p>
+                </div>
+
+                <div class="paper-texture p-4 relative" style="transform: rotate(0.5deg);">
+                    <h4 class="font-hand text-xl font-bold">Зрителям</h4>
+                    <p class="text-inkLight mt-2">Каждому, кто нажал play и досмотрел до конца. Каждому, кто сказал что-то хорошее про проект. Вы — лучшие!</p>
+                </div>
+
+                <div class="paper-texture p-4 relative" style="transform: rotate(-1deg);">
+                    <h4 class="font-hand text-xl font-bold">Волонтёрам</h4>
+                    <p class="text-inkLight mt-2">Тем кто размещал у себя рекламу в профиле, или просто рассказывал о нас другим.</p>
+                </div>
+
+                <div class="paper-texture p-4 relative" style="transform: rotate(1.8deg);">
+                    <h4 class="font-hand text-xl font-bold">Самодельщикам</h4>
+                    <p class="text-inkLight mt-2">Всем тем, кем мы вдохновлялись при создании наших сцен и котиков.</p>
+                </div>
+            </div>
+
+            <!-- Final note -->
+            <div class="mt-8 text-center">
+                <div class="paper-texture inline-block px-6 py-4 relative torn-edge" style="transform: rotate(0.5deg);">
+                    <p class="font-hand text-2xl md:text-3xl text-redPin">
+                        Спасибо за то, что вы есть!
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== О ПРОЕКТЕ (NEW) ========== -->
+        <div id="about-project" class="section-page">
+            <div class="mb-6">
+                <h2 class="font-hand text-3xl md:text-4xl font-bold inline-block relative">
+                    О проекте
+                    <span class="absolute -bottom-1 left-0 right-0 h-1 bg-redPin/30 rounded"></span>
+                </h2>
+            </div>
+
+            <!-- Block 1: Description -->
+            <div class="paper-texture p-6 md:p-8 relative notebook-lines mb-6" style="transform: rotate(-0.3deg);">
+                <div class="tape tape-top" style="width: 80px;"></div>
+                <div class="pl-4 margin-line">
+                    <p class="text-lg leading-relaxed text-inkLight">
+                        A Deafult Day Of A Deafult Cat — это небольшой независимый проект который родился из-за картинки в интернете и нашей скуки, а теперь, уже более года мы выпускаем мультики несмотря ни на что. Да у нас мало подписчиков и в принципе нас почти никто не знает, но мы всё равно продолжаем даже когда нет мотивации и сил идти дальше.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Block 2: Goals -->
+            <div class="paper-texture p-6 md:p-8 relative mb-6" style="transform: rotate(0.4deg);">
+                <div class="pin" style="left: 20%;"></div>
+                <h3 class="font-hand text-2xl font-bold mb-4">Наша цель</h3>
+                <div class="space-y-3">
+                    <div class="goal-item">
+                        <span class="text-inkLight">Показать что любой может создавать свои истории и превращать их в хобби</span>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Block 4: Technology -->
+            <div class="paper-texture p-6 md:p-8 relative" style="transform: rotate(0.2deg);">
+                <div class="pin" style="left: 70%;"></div>
+                <h3 class="font-hand text-2xl font-bold mb-4">Как создаётся магия</h3>
+                <p class="text-inkLight leading-relaxed">
+                    Проект появился когда Влада нашла картинку с котиком в Pinterest, Ваня от скуки сделал кучу таких котиков, Даня и Федя предложили снять и мы решили податься на конкурс проектов.
+                </p>
+            </div>
+        </div>
+
+        <!-- ========== ОБ АВТОРАХ ========== -->
+        <div id="authors" class="section-page">
+            <div class="mb-6">
+                <h2 class="font-hand text-3xl md:text-4xl font-bold inline-block relative">
+                    Об авторах
+                    <span class="absolute -bottom-1 left-0 right-0 h-1 bg-redPin/30 rounded"></span>
+                </h2>
+            </div>
+            <div class="paper-texture p-6 md:p-8 relative notebook-lines" style="transform: rotate(-0.2deg);">
+                <div class="tape tape-top"></div>
+                <div class="pl-4 margin-line">
+                    <p class="text-lg leading-relaxed text-inkLight mb-6">
+                        Над проектом старалось не так много людей, но они все безумно важны в проекте. Также здесь не написаны те кто озвучивал (их очень много), но вы также невероятно помогли проекту.
+                    </p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                        <div class="paper-texture p-4 relative" style="transform: rotate(0.5deg);">
+                            <p class="font-hand text-xl font-bold">Черепанов Иван</p>
+                            <p class="text-inkLight/70 text-sm">автор котиков, главный актёр озвучки, сценарист</p>
+                            <p class="text-inkLight mt-2 text-sm">Это не человек, а котик. Он голос котика, и думает тоже как котик. Мечтает завести котика.</p>
+                        </div>
+                        <div class="paper-texture p-4 relative" style="transform: rotate(-0.7deg);">
+                            <p class="font-hand text-xl font-bold">Иванов Фёдор</p>
+                            <p class="text-inkLight/70 text-sm">создатель сцен, создатель 3-D моделей</p>
+                            <p class="text-inkLight mt-2 text-sm">Святой человек который создаёт мир котиков и его детали. Если бы не его сцены, мультик бы не получился настолько детализированным.</p>
+                        </div>
+                        <div class="paper-texture p-4 relative" style="transform: rotate(1.1deg);">
+                            <p class="font-hand text-xl font-bold">Алексеев Данила</p>
+                            <p class="text-inkLight/70 text-sm">режиссёр, оператор, монтажёр, звукорежиссёр</p>
+                            <p class="text-inkLight mt-2 text-sm">Человек со стальными нервами который руководит съёмками и делает почти всю закадровую работу. Он может смонтировать более 500 кадров и не сойти с ума.</p>
+                        </div>
+                        <div class="paper-texture p-4 relative" style="transform: rotate(-0.3deg);">
+                            <p class="font-hand text-xl font-bold">Сухова Мария</p>
+                            <p class="text-inkLight/70 text-sm">мотиватор, учительница по английскому</p>
+                            <p class="text-inkLight mt-2 text-sm">Хоть со стороны роль этого человека кажется незначительной, но если бы не она, то мультик не пошёл бы дальше первой серии. Именно она нас всегда поддерживала.</p>
+                        </div>
+                        <div class="paper-texture p-4 relative" style="transform: rotate(0.8deg);">
+                            <p class="font-hand text-xl font-bold">Иваненко Тальяна</p>
+                            <p class="text-inkLight/70 text-sm">актёр озвучки, художник</p>
+                            <p class="text-inkLight mt-2 text-sm">Ещё один голос для наших котиков, и самое главное, автор обложек для наших видео. Кроме того она и до вступления в нашу команду всегда нас поддерживала.</p>
+                        </div>
+                        <div class="paper-texture p-4 relative" style="transform: rotate(-0.5deg);">
+                            <p class="font-hand text-xl font-bold">Сухарева Полина</p>
+                            <p class="text-inkLight/70 text-sm">помощник по сценам, актёр озвучки</p>
+                            <p class="text-inkLight mt-2 text-sm">Она та кто помогает нам успевать в дедлайны. Раньше без неё мы всегда не успевали.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== ИСТОРИЯ СОЗДАНИЯ ========== -->
+        <div id="history" class="section-page">
+            <div class="mb-6">
+                <h2 class="font-hand text-3xl md:text-4xl font-bold inline-block relative">
+                    История создания
+                    <span class="absolute -bottom-1 left-0 right-0 h-1 bg-redPin/30 rounded"></span>
+                </h2>
+            </div>
+            <div class="paper-texture p-6 md:p-8 relative notebook-lines" style="transform: rotate(0.3deg);">
+                <div class="tape tape-top" style="width: 90px;"></div>
+                <div class="pl-4 margin-line space-y-4">
+                    <p class="text-lg leading-relaxed text-inkLight">
+                        Проект появился когда Влада нашла картинку с котиком в Pinterest, Ваня от скуки сделал кучу таких котиков, Даня и Федя предложили снять и мы решили податься на конкурс проектов, после этого мы показали мультик нашей учительнице английского и она стала первым и самым важным нашим фанатом, и мы стали делать мультики, потом всё больше людей вокруг начало интересоваться проектом и наш штаб увеличился, теперь мы в новом составе продолжаем делать мультики.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== СОЦСЕТИ ========== -->
+        <div id="social" class="section-page">
+            <div class="mb-6">
+                <h2 class="font-hand text-3xl md:text-4xl font-bold inline-block relative">
+                    Соцсети
+                    <span class="absolute -bottom-1 left-0 right-0 h-1 bg-redPin/30 rounded"></span>
+                </h2>
+            </div>
+
+            <div class="paper-texture p-5 md:p-6 mb-6 relative" style="transform: rotate(-0.3deg);">
+                <div class="tape tape-top"></div>
+                <p class="text-lg text-inkLight text-center">
+                    Подписывайтесь, чтобы не пропустить новые серии и новости!
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <!-- YouTube -->
+                <a href="https://www.youtube.com/@ADeafultDayOfADeafutCat" class="social-btn paper-texture p-5 block relative group" style="transform: rotate(0.8deg);">
+                    <div class="flex items-center gap-4">
+                        <div class="w-14 h-14 rounded-full bg-red-100 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+                            ▶️
+                        </div>
+                        <div>
+                            <p class="font-hand text-2xl font-bold">YouTube</p>
+                            <p class="text-inkLight text-sm">@ADeafultDayOfADeafutCat</p>
+                            <p class="text-inkLight/60 text-xs mt-1">Все серии в хорошем качестве</p>
+                        </div>
+                    </div>
+                    <div class="absolute bottom-3 right-3 font-hand text-redPin text-sm opacity-0 group-hover:opacity-100 transition-opacity">
+                        Перейти →
+                    </div>
+                </a>
+
+                <!-- Telegram -->
+                <a href="t.me/papercatchannel" class="social-btn paper-texture p-5 block relative group" style="transform: rotate(-1deg);">
+                    <div class="flex items-center gap-4">
+                        <div class="w-14 h-14 rounded-full bg-blue-100 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+                            ✈️
+                        </div>
+                        <div>
+                            <p class="font-hand text-2xl font-bold">Telegram</p>
+                            <p class="text-inkLight text-sm">t.me/papercatchannel</p>
+                            <p class="text-inkLight/60 text-xs mt-1">Новости, анонсы, обсуждения</p>
+                        </div>
+                    </div>
+                    <div class="absolute bottom-3 right-3 font-hand text-blue-500 text-sm opacity-0 group-hover:opacity-100 transition-opacity">
+                        Перейти →
+                    </div>
+                </a>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="relative py-8 mt-8">
+        <div class="max-w-5xl mx-auto px-4 text-center">
+            <div class="paper-texture inline-block px-8 py-4 relative" style="transform: rotate(0.3deg);">
+                <div class="tape tape-top"></div>
+                <p class="text-xl text-inkLight">
+                    A deaful day of a cat &copy; 2026
+                </p>
+                <p class="text-lg text-inkLight/70 mt-1">
+                    сделано своими руками
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Episode Detail Modal -->
+    <div id="episode-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4" style="background: rgba(60,50,38,0.6); backdrop-filter: blur(3px);">
+        <div class="paper-texture max-w-2xl w-full max-h-[90vh] overflow-y-auto relative rounded-sm" style="transform: rotate(-0.3deg);">
+            <div class="tape tape-top" style="width: 100px; transform: translateX(-50%) rotate(1deg);"></div>
+            
+            <!-- Close button -->
+            <button id="modal-close" class="absolute top-3 right-4 text-2xl text-inkLight hover:text-redPin transition-colors z-20">&times;</button>
+            
+            <!-- Modal content -->
+            <div id="modal-content" class="p-5 md:p-8">
+                <!-- Filled dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Episode data - simplified: only title, image, description, creationHistory, videoUrl
+        const episodesData = [
+  { id: 1, title: 'Обычный день', image: 'images/серия 1.png', description: 'Это была наша самая первая серия. Спасибо Марии Владимировне, без вас ни одна серия не вышла бы.', fullDescription: 'Первая серия про котиков. Обычный день обычного котика.', creationHistory: 'Наша самая первая серия. Спасибо конечно же Марии Владимировне, без вас ни одна серия не вышла бы.', videoUrl: 'https://archive.org/details/3_20260617_20260617_1500/1.mp4' },
+  { id: 2, title: 'Весенние каникулы', image: 'images/серия 2.png', description: 'После 1 серии мы долго сидели на одном месте и ничего не делали. В итоге повод нашли, серию сняли, в этот раз про весенние каникулы.', fullDescription: 'Вторая серия про котиков. Весенние каникулы.', creationHistory: 'Первую серию мы доделывали в очень быстром темпе в последние 2-3 дня до презентации. В итоге повод нашли, серию сняли.', videoUrl: 'https://archive.org/details/3_20260617_20260617_1500/2.mp4' },
+  { id: 3, title: '1 Апреля', image: 'images/серия 3.png', description: 'Это самая странная серия, что мы выпускали. Здесь абсурд впритык с котиком.', fullDescription: 'Третья серия про котиков. Самая странная.', creationHistory: 'Сначала серия была около 1-2 мин, но в процессе съемок нас занесло, и мы сделали те сцены со столом, и мы почти везде где только можно отошли от сценария.', videoUrl: 'https://archive.org/details/3_20260617_20260617_1500/3.mp4' },
+  { id: 4, title: 'МЦКО', image: 'images/серия 4.png', description: 'Одна из самых сложных серий за всё время. Самая детализированная серия.', fullDescription: 'Четвёртая серия про котиков. МЦКО.', creationHistory: 'За 7 дней до дедлайна мы начали снимать, и за 3 дня до планируемого показа мы закончили. Почти все сцены новые или переделанные.', videoUrl: 'https://archive.org/details/3_20260617_20260617_1500/4.mp4' },
+  { id: 5, title: 'Космос', image: 'images/серия 5.png', description: 'Серия специально для 2Г класса ко дню космонавтики. Сняли за неделю.', fullDescription: 'Пятая серия про котиков. Космос.', creationHistory: 'От задумки до показа за неделю. Было нелегко, но мы справились и отлично выступили перед младшеклассниками.', videoUrl: 'https://archive.org/details/3_20260617_20260617_1500/космос.mp4' },
+  { id: 6, title: 'Летние каникулы', image: 'images/серия 6.png', description: 'Одна из самых сложных работ. Почти все сцены сделаны с нуля.', fullDescription: 'Шестая серия про котиков. Летние каникулы.', creationHistory: 'Почти все сцены сделаны с нуля. В озвучке поучаствовало много человек, спасибо им. Уходим на летний отдых.', videoUrl: 'https://archive.org/details/chat-gpt-image-19-2026-.-16-11-44' }
+        ];
+
+        // ===== НОВОСТИ =====
+        // 🔧 Добавляй новые новости сюда — просто вставь новый объект в массив
+        // Формат: { date, title, text, image (опционально), badge }
+        const newsData = [
+  { date: '5 Июня 2026', title: 'Котики Behind The Scenes', text: 'Забыли написать: все сцены серии Behind The Scenes сняты. Монтируем.' },
+  { date: '29 Мая 2026', title: 'Roadmap серий', text: 'Roadmap следующих серий котиков. Серия #7: Behind The Scenes — уже в работе. Серия #8: Аниме — сюжет на стадии утверждения. Серия #9: Нового года не будет. Серия #10: ДР Котика — окончание 1 сезона.' },
+  { date: '25 Мая 2026', title: 'Котики Behind The Scenes', text: 'Следующая серия: Behind The Scenes — как мы делаем котиков. Прикольная серия, показывающая как котики делают котиков, обслуживают сцены и оборудование и конечно же КАКАО.' },
+  { date: '25 Мая 2026', title: 'О команде', text: 'Извините что пропали. Ваня занимался ОТДЫХОМ и написанием сюжета для следующей серии. Постараемся не забывать про канал.' },
+  { date: '21 Мая 2026', title: 'Общее', text: 'Вчера я выразил недовольство по поводу грамот. Сегодня нам ВЫДАЛИ ЭТИ ГРАМОТЫ. Спасибо Марии Владимировне!', image: 'images/новость 15.jpg' },
+  { date: '20 Мая 2026', title: 'Общее', text: 'Хочу выразиться насчёт награждения. Котиков нет в списках проектов. Это равносильно lost media.' },
+  { date: '20 Мая 2026', title: 'Котики лето', text: 'Можем не успеть дропнуть летнюю серию к 11:20, скинем к 11:45.' },
+  { date: '20 Мая 2026', title: 'О команде', text: 'Мы уходим на летний отдых на весь июнь, но канал в тг будем вести.' },
+  { date: '19 Мая 2026', title: 'Котики лето', text: 'Наконец-то закончили снимать летнюю серию. Выпуск ЗАВТРА, в 11:20.' },
+  { date: '17 Мая 2026', title: 'Котики лето', text: 'Сегодня будем делать летнюю серию. Надо снять ВСЕ сцены, декорации и котиков. Готовим какао.' },
+  { date: '6 Мая 2026', title: 'О команде', text: 'Вообще то мы все в первый раз за пол-учебного года отдыхаем.' },
+  { date: '6 Мая 2026', title: 'Будущее', text: 'Зацените, серия после летней похоже будет аниме.', image: 'images/новость 8.jpg' },
+  { date: '5 Мая 2026', title: 'Котики МЦКО', text: 'Котики МЦКО готовы! Теперь начинаем работать над летней серией.', image: 'images/новость 7.png' },
+  { date: '4 Мая 2026', title: 'Наш канал в телеграм', text: 'Ураааа! 5 подписчиков!' },
+  { date: '4 Мая 2026', title: 'Котики МЦКО', text: 'Серия скоро выйдет, сегодня доделаем последние правки.' },
+  { date: '1 Мая 2026', title: 'Котики МЦКО', text: 'Вот как выглядит серия когда мы её монтируем. Press F, мышка Дани.', image: 'images/новость 4.jpg' },
+  { date: '1 Мая 2026', title: 'Котики МЦКО', text: 'Закончили озвучку котиков, теперь монтировать.' },
+  { date: '1 Мая 2026', title: 'Котики МЦКО', text: 'Сцена класса, в котором писал котик МЦКО. Кровь это кетчуп.', image: 'images/новость 2.jpg' },
+  { date: '1 Мая 2026', title: 'Котики МЦКО', text: 'Сегодня мы наконец-то досняли МЦКО. Теперь монтаж.' }
+        ];
+
+        // Render news
+        function renderNews() {
+            const container = document.getElementById('news-container');
+            container.innerHTML = '';
+            const rotations = ['-0.3deg', '0.4deg', '-0.6deg', '0.6deg'];
+            newsData.forEach((item, index) => {
+                const hasImage = item.image ? true : false;
+                const rot = rotations[index % rotations.length];
+                const div = document.createElement('div');
+
+                if (hasImage) {
+                    const hasTape = index === 0;
+                    div.className = 'paper-texture p-5 md:p-6 relative' + (hasTape ? ' torn-edge' : '');
+                    div.style.transform = `rotate(${rot})`;
+                    div.innerHTML = `
+                        ${hasTape ? '<div class="tape tape-top"></div>' : ''}
+                        <div class="flex flex-col md:flex-row gap-4">
+                            <div class="md:w-48 flex-shrink-0">
+                                <img src="${item.image}" alt="Новость" class="w-full rounded-sm opacity-90" style="filter: sepia(0.15);">
+                            </div>
+                            <div>
+                                <span class="text-sm text-inkLight/60">${item.date}</span>
+                                <h3 class="font-hand text-2xl font-bold mt-1">${item.title}</h3>
+                                <p class="text-inkLight mt-2">${item.text}</p>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    div.className = 'paper-texture p-5 md:p-6 max-w-lg relative';
+                    div.style.transform = `rotate(${rot})`;
+                    div.innerHTML = `
+                        <span class="text-sm text-inkLight/60">${item.date}</span>
+                        <h3 class="font-hand text-2xl font-bold mt-1">${item.title}</h3>
+                        <p class="text-inkLight mt-2">${item.text}</p>
+                    `;
+                }
+                container.appendChild(div);
+            });
+        }
+
+        // ===== СЕРИИ =====
+        // 🔧 Добавляй новые серии сюда — просто вставь новый объект в массив
+        // Формат: { id, title, image, description, fullDescription, creationHistory, videoUrl }
+        // id: номер по порядку
+        // image: ссылка на картинку (потом заменишь)
+        // videoUrl: ссылка на видео (YouTube, VK, Rutube, Internet Archive, MP4 — плеер сам определит)
+
+        // Render episode cards
+        function renderEpisodes() {
+            const grid = document.getElementById('episodes-grid');
+            grid.innerHTML = '';
+            episodesData.forEach((ep, index) => {
+                const rotations = ['0.5deg', '-0.8deg', '0.3deg', '-0.4deg', '0.7deg', '-0.6deg'];
+                const pins = ['50%', '30%', '70%', '50%', '40%', '60%'];
+                const card = document.createElement('div');
+                card.className = 'episode-card paper-texture p-0 relative';
+                card.style.transform = `rotate(${rotations[index]})`;
+                card.style.cursor = 'pointer';
+                card.innerHTML = `
+                    <div class="pin" style="left: ${pins[index]};"></div>
+                    <div class="aspect-video bg-paperDark overflow-hidden">
+                        <img src="${ep.image}" alt="Серия ${ep.id}" class="w-full h-full object-cover opacity-90" style="filter: sepia(0.2) contrast(1.05);">
+                    </div>
+                    <div class="p-4 notebook-lines">
+                        <div class="pl-4 margin-line">
+                            <span class="font-hand text-xl font-bold">Серия ${ep.id}</span>
+                            <p class="font-hand text-inkLight mt-1">${ep.title}</p>
+                            <p class="text-sm text-inkLight/70 mt-2">${ep.description}</p>
+                        </div>
+                    </div>
+                `;
+                card.addEventListener('click', () => openEpisode(ep.id));
+                grid.appendChild(card);
+            });
+        }
+
+        // Tab navigation
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const sections = document.querySelectorAll('.section-page');
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tabName = btn.dataset.tab;
+
+                // Remove active from all
+                tabBtns.forEach(b => b.classList.remove('active'));
+                sections.forEach(s => s.classList.remove('active'));
+
+                // Activate selected
+                btn.classList.add('active');
+                const targetSection = document.getElementById(tabName);
+                if (targetSection) {
+                    targetSection.classList.add('active');
+                }
+
+                // Smooth scroll to top of content
+                window.scrollTo({
+                    top: 200,
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Episode modal - universal video player
+        const modal = document.getElementById('episode-modal');
+        const modalContent = document.getElementById('modal-content');
+        const modalClose = document.getElementById('modal-close');
+
+        function getVideoHtml(url) {
+            if (!url || url === '') {
+                return `
+                    <div class="video-placeholder mb-5">
+                        <div class="text-5xl text-white/70 mb-3">▶️</div>
+                        <p class="text-white/60 text-lg">Видео скоро появится</p>
+                    </div>
+                `;
+            }
+
+            // YouTube
+            const ytMatch = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w-]+)/);
+            if (ytMatch) {
+                return `
+                    <div class="mb-5 relative" style="padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 4px;">
+                        <iframe src="https://www.youtube-nocookie.com/embed/${ytMatch[1]}" 
+                            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+                            frameborder="0" allowfullscreen>
+                        </iframe>
+                    </div>
+                `;
+            }
+
+            // VK Video
+            const vkMatch = url.match(/vk\.com\/video(-?\d+)_(\d+)/);
+            if (vkMatch) {
+                return `
+                    <div class="mb-5 relative" style="padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 4px;">
+                        <iframe src="https://vk.com/video_ext.php?oid=${vkMatch[1]}&id=${vkMatch[2]}&hd=1"
+                            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+                            frameborder="0" allowfullscreen>
+                        </iframe>
+                    </div>
+                `;
+            }
+
+            // Rutube
+            const rtMatch = url.match(/rutube\.ru\/video\/([\w-]+)/);
+            if (rtMatch) {
+                return `
+                    <div class="mb-5 relative" style="padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 4px;">
+                        <iframe src="https://rutube.ru/embed/${rtMatch[1]}"
+                            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+                            frameborder="0" allowfullscreen>
+                        </iframe>
+                    </div>
+                `;
+            }
+
+            // Internet Archive
+            const iaMatch = url.match(/archive\.org\/(?:details|embed)\/([\w-]+)/);
+            if (iaMatch) {
+                return `
+                    <div class="mb-5 relative" style="padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 4px;">
+                        <iframe src="https://archive.org/embed/${iaMatch[1]}"
+                            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+                            frameborder="0" allowfullscreen>
+                        </iframe>
+                    </div>
+                `;
+            }
+
+            // Direct video file (.mp4, .webm, etc.)
+            if (url.match(/\.(mp4|webm|ogg)(\?|$)/i)) {
+                return `
+                    <div class="mb-5">
+                        <video controls class="w-full rounded-sm" style="background: #2a2520; aspect-ratio: 16/9;">
+                            <source src="${url}">
+                            Ваш браузер не поддерживает HTML5 видео.
+                        </video>
+                    </div>
+                `;
+            }
+
+            // Any other embed URL — use as-is in iframe
+            return `
+                <div class="mb-5 relative" style="padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 4px;">
+                    <iframe src="${url}"
+                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+                        frameborder="0" allowfullscreen>
+                    </iframe>
+                </div>
+            `;
+        }
+
+        function openEpisode(episodeId) {
+            const ep = episodesData.find(e => e.id === episodeId);
+            if (!ep) return;
+
+            modalContent.innerHTML = `
+                <div class="mb-4">
+                    <h3 class="font-hand text-2xl font-bold text-ink mb-1">Серия ${ep.id}</h3>
+                    <h2 class="font-hand text-3xl font-bold text-redPin mb-4">${ep.title}</h2>
+                    
+                    ${getVideoHtml(ep.videoUrl)}
+                    
+                    <!-- Creation History -->
+                    <div class="paper-texture p-4 relative notebook-lines">
+                        <div class="pl-4 margin-line">
+                            <h4 class="font-hand text-xl font-bold mb-2">📜 История создания серии</h4>
+                            <p class="text-inkLight leading-relaxed">${ep.creationHistory}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeEpisode() {
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.body.style.overflow = '';
+        }
+
+        modalClose.addEventListener('click', closeEpisode);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeEpisode();
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeEpisode();
+        });
+
+        // Form submission — отправляет на почту через FormSubmit
+        async function handleSubmit(e) {
+            e.preventDefault();
+            const form = e.target;
+            const btn = document.getElementById('submit-btn');
+            const successMsg = document.getElementById('form-success');
+
+            // Собираем данные
+            const data = new FormData(form);
+            data.append('_captcha', 'false');
+            data.append('_subject', 'Новое сообщение с Бумажный Мульт');
+
+            try {
+                btn.disabled = true;
+                btn.textContent = '⏳ Отправка...';
+
+                const res = await fetch('https://formsubmit.co/ajax/fogokopohouobo@mail.ru', {
+                    method: 'POST',
+                    body: data
+                });
+
+                if (!res.ok) throw new Error('Ошибка сервера');
+
+                successMsg.classList.remove('hidden');
+                form.reset();
+            } catch (err) {
+                alert('Не удалось отправить. Попробуйте позже или напишите на почту.');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Отправить';
+                setTimeout(() => {
+                    successMsg.classList.add('hidden');
+                }, 5000);
+            }
+        }
+
+        // Initialize
+        renderEpisodes();
+        renderNews();
+    </script>
+</body>
+</html>
