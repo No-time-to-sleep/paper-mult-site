@@ -207,13 +207,20 @@
             align-items: flex-start;
         }
 
-        /* Desktop scale */
-        @media (min-width: 1280px) {
-            body { font-size: 1.25rem; }
-            .font-hand { font-size: 1.4em; }
-            .tab-btn { font-size: 1.3rem !important; }
-            .max-w-5xl { max-width: 95rem !important; }
-            .text-lg { font-size: 1.3rem !important; }
+        /* Fluid scaling — автомат под любой экран, без @media */
+        html {
+            font-size: clamp(0.9rem, 0.75rem + 0.5vw, 1.4rem);
+        }
+        .max-w-5xl {
+            max-width: min(92vw, 1400px) !important;
+        }
+        /* Подстраховка для очень мелких экранов */
+        body {
+            overflow-x: hidden;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
         }
 
         .episode-card {
