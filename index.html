@@ -707,6 +707,12 @@
         </div>
     </div>
 
+    <!-- Image Lightbox -->
+    <div id="image-lightbox" class="fixed inset-0 z-50 hidden items-center justify-center p-4" style="background: rgba(0,0,0,0.85); backdrop-filter: blur(5px);">
+        <button id="lightbox-close" class="absolute top-4 right-6 text-5xl text-white hover:text-redPin transition-colors z-10">&times;</button>
+        <img id="lightbox-image" src="" alt="Просмотр" class="max-w-[90vw] max-h-[90vh] object-contain rounded-sm shadow-2xl">
+    </div>
+
     <script>
         // Episode data - simplified: only title, image, description, creationHistory, videoUrl
         const episodesData = [
@@ -1042,11 +1048,6 @@
         renderEpisodes();
         renderNews();
     </script>
-    <!-- Image Lightbox -->
-    <div id="image-lightbox" class="fixed inset-0 z-50 hidden items-center justify-center p-4" style="background: rgba(0,0,0,0.85); backdrop-filter: blur(5px);">
-        <button id="lightbox-close" class="absolute top-4 right-6 text-5xl text-white hover:text-redPin transition-colors z-10">&times;</button>
-        <img id="lightbox-image" src="" alt="Просмотр" class="max-w-[90vw] max-h-[90vh] object-contain rounded-sm shadow-2xl">
-    </div>
 
 </body>
 </html>
