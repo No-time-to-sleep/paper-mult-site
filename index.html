@@ -128,6 +128,11 @@
 
         .episode-card {
             transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        .episode-card .notebook-lines {
+            flex: 1;
         }
         .episode-card:hover {
             transform: translateY(-4px) rotate(-0.5deg);
@@ -201,18 +206,24 @@
             display: flex;
             align-items: flex-start;
         }
-        /* Desktop scale */
-@media (min-width: 1280px) {
-  body { font-size: 1.25rem; }
-  .font-hand { font-size: 1.4em; }
-  .tab-btn { font-size: 1.3rem !important; }
-  .max-w-5xl { max-width: 95rem !important; }
-  .text-lg { font-size: 1.3rem !important; }
-}
 
-        /* Episode card min height */
-        .episode-card .notebook-lines { min-height: 140px; }
-        .episode-card .p-4.notebook-lines { min-height: 140px; }
+        /* Desktop scale */
+        @media (min-width: 1280px) {
+            body { font-size: 1.25rem; }
+            .font-hand { font-size: 1.4em; }
+            .tab-btn { font-size: 1.3rem !important; }
+            .max-w-5xl { max-width: 95rem !important; }
+            .text-lg { font-size: 1.3rem !important; }
+        }
+
+        .episode-card {
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        .episode-card .notebook-lines {
+            flex: 1;
+        }
     </style>
 </head>
 <body class="min-h-screen font-sans text-ink" style="font-family: system-ui, -apple-system, sans-serif;">
@@ -228,7 +239,7 @@
                 <p class="text-lg md:text-xl text-inkLight mt-2">
                     придумываем, рисуем, создаём, снимаем, монтируем
                 </p>
-                <p class="text-lg md:text-xl text-inkLight mt-2">
+                <p class="text-lg md:text-xl text-inkLight mt-1">
                     всё с душой
                 </p>
             </div>
@@ -334,89 +345,14 @@
                     </form>
                     <div id="form-success" class="hidden mt-4 pl-4 margin-line">
                         <div class="paper-texture p-3 inline-block relative">
-                            <p class="text-green-700">✅ Сообщение отправлено! Мы ответим скоро.</p>
+                            <p class="text-green-700">Сообщение отправлено! Мы ответим скоро.</p>
                         </div>
                     </div>
                 </div>
 
                 <!-- Team Cards -->
-                <div class="space-y-4">
-                    <div class="paper-texture p-4 relative" style="transform: rotate(1deg);">
-                        <div class="flex items-center gap-3">
-                            <div class="w-14 h-14 rounded-full bg-paperDark overflow-hidden flex-shrink-0">
-                                <img src="images/ваня.jpg" alt="Черепанов Иван" class="w-full h-full object-cover" style="filter: sepia(0.2);">
-                            </div>
-                            <div>
-                                <h4 class="font-hand text-xl font-bold">Черепанов Иван</h4>
-                                <p class="text-inkLight text-sm">автор котиков, главный актёр озвучки, сценарист</p>
-                                <p class="text-inkLight/70 text-xs mt-1">vanya.che7428@gmail.com</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="paper-texture p-4 relative" style="transform: rotate(-1.5deg);">
-                        <div class="flex items-center gap-3">
-                            <div class="w-14 h-14 rounded-full bg-paperDark overflow-hidden flex-shrink-0">
-                                <img src="images/федя.jpg" alt="Иванов Фёдор" class="w-full h-full object-cover" style="filter: sepia(0.2);">
-                            </div>
-                            <div>
-                                <h4 class="font-hand text-xl font-bold">Иванов Фёдор</h4>
-                                <p class="text-inkLight text-sm">создатель сцен, создатель 3-D моделей</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="paper-texture p-4 relative" style="transform: rotate(0.8deg);">
-                        <div class="flex items-center gap-3">
-                            <div class="w-14 h-14 rounded-full bg-paperDark overflow-hidden flex-shrink-0">
-                                <img src="images/даня.jpg" alt="Алексеев Данила" class="w-full h-full object-cover" style="filter: sepia(0.2);">
-                            </div>
-                            <div>
-                                <h4 class="font-hand text-xl font-bold">Алексеев Данила</h4>
-                                <p class="text-inkLight text-sm">режиссёр, оператор, монтажёр, звукорежиссёр</p>
-                                <p class="text-inkLight/70 text-xs mt-1">fogokopohouobo@mail.ru</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="paper-texture p-4 relative" style="transform: rotate(-0.5deg);">
-                        <div class="flex items-center gap-3">
-                            <div class="w-14 h-14 rounded-full bg-paperDark overflow-hidden flex-shrink-0">
-                                <img src="images/мария.jpg" alt="Сухова Мария" class="w-full h-full object-cover" style="filter: sepia(0.2);">
-                            </div>
-                            <div>
-                                <h4 class="font-hand text-xl font-bold">Сухова Мария</h4>
-                                <p class="text-inkLight text-sm">мотиватор, учительница по английскому</p>
-                                <p class="text-inkLight/70 text-xs mt-1">m.v.sukhova@gmail.com</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="paper-texture p-4 relative" style="transform: rotate(1.2deg);">
-                        <div class="flex items-center gap-3">
-                            <div class="w-14 h-14 rounded-full bg-paperDark overflow-hidden flex-shrink-0">
-                                <img src="images/таля.jpg" alt="Иваненко Тальяна" class="w-full h-full object-cover" style="filter: sepia(0.2);">
-                            </div>
-                            <div>
-                                <h4 class="font-hand text-xl font-bold">Иваненко Тальяна</h4>
-                                <p class="text-inkLight text-sm">актёр озвучки, художник</p>
-                                <p class="text-inkLight/70 text-xs mt-1">katkotket333@yandex.ru</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="paper-texture p-4 relative" style="transform: rotate(-0.8deg);">
-                        <div class="flex items-center gap-3">
-                            <div class="w-14 h-14 rounded-full bg-paperDark overflow-hidden flex-shrink-0">
-                                <img src="images/поля.jpg" alt="Сухарева Полина" class="w-full h-full object-cover" style="filter: sepia(0.2);">
-                            </div>
-                            <div>
-                                <h4 class="font-hand text-xl font-bold">Сухарева Полина</h4>
-                                <p class="text-inkLight text-sm">помощник по сценам, актёр озвучки</p>
-                                <p class="text-inkLight/70 text-xs mt-1">sukhareva.pa@gmail.com</p>
-                            </div>
-                        </div>
-                    </div>
+                <div class="space-y-4" id="contact-team-cards">
+                    <!-- Filled dynamically / from HTML -->
                 </div>
             </div>
         </div>
@@ -440,34 +376,28 @@
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                <!-- Thank you cards -->
                 <div class="paper-texture p-4 relative" style="transform: rotate(1.5deg);">
                     <h4 class="font-hand text-xl font-bold">Спонсорам</h4>
                     <p class="text-inkLight mt-2">Всем кто как-либо помог проекту не важно, материально или другой поддержкой спасибо.</p>
                 </div>
-
                 <div class="paper-texture p-4 relative" style="transform: rotate(-2deg);">
                     <h4 class="font-hand text-xl font-bold">Семьям</h4>
                     <p class="text-inkLight mt-2">Нашим семьям за терпение, поддержку и за то, что выслушивали все наши истории, спасибо.</p>
                 </div>
-
                 <div class="paper-texture p-4 relative" style="transform: rotate(0.5deg);">
                     <h4 class="font-hand text-xl font-bold">Зрителям</h4>
-                    <p class="text-inkLight mt-2">Каждому, кто нажал play и досмотрел до конца. Каждому, кто сказал что-то хорошее про проект. Вы — лучшие!</p>
+                    <p class="text-inkLight mt-2">Каждому, кто нажал «play» и досмотрел до конца. Каждому, кто сказал что-то хорошее про проект. Вы — лучшие!</p>
                 </div>
-
                 <div class="paper-texture p-4 relative" style="transform: rotate(-1deg);">
                     <h4 class="font-hand text-xl font-bold">Волонтёрам</h4>
                     <p class="text-inkLight mt-2">Тем кто размещал у себя рекламу в профиле, или просто рассказывал о нас другим.</p>
                 </div>
-
                 <div class="paper-texture p-4 relative" style="transform: rotate(1.8deg);">
                     <h4 class="font-hand text-xl font-bold">Самодельщикам</h4>
                     <p class="text-inkLight mt-2">Всем тем, кем мы вдохновлялись при создании наших сцен и котиков.</p>
                 </div>
             </div>
 
-            <!-- Final note -->
             <div class="mt-8 text-center">
                 <div class="paper-texture inline-block px-6 py-4 relative torn-edge" style="transform: rotate(0.5deg);">
                     <p class="font-hand text-2xl md:text-3xl text-redPin">
@@ -491,7 +421,7 @@
                 <div class="tape tape-top" style="width: 80px;"></div>
                 <div class="pl-4 margin-line">
                     <p class="text-lg leading-relaxed text-inkLight">
-                        A Deafult Day Of A Deafult Cat — это небольшой независимый проект который родился из-за картинки в интернете и нашей скуки, а теперь, уже более года мы выпускаем мультики несмотря ни на что. Да у нас мало подписчиков и в принципе нас почти никто не знает, но мы всё равно продолжаем даже когда нет мотивации и сил идти дальше.
+                        <strong class="text-ink">A Deafult Day Of A Deafult Cat</strong> — это небольшой независимый проект который родился из-за картинки в интернете и нашей скуки, а теперь, уже более года мы выпускаем мультики несмотря ни на что. Да у нас мало подписчиков и в принципе нас почти никто не знает, но мы всё равно продолжаем даже когда нет мотивации и сил идти дальше.
                     </p>
                 </div>
             </div>
@@ -507,8 +437,7 @@
                 </div>
             </div>
 
-
-            <!-- Block 4: Technology -->
+            <!-- Block 3: History -->
             <div class="paper-texture p-6 md:p-8 relative" style="transform: rotate(0.2deg);">
                 <div class="pin" style="left: 70%;"></div>
                 <h3 class="font-hand text-2xl font-bold mb-4">История создания</h3>
@@ -532,91 +461,7 @@
                     <p class="text-lg leading-relaxed text-inkLight mb-6">
                         Над проектом старалось не так много людей, но они все безумно важны в проекте. Также здесь не написаны те кто озвучивал (их очень много), но вы также невероятно помогли проекту.
                     </p>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                        <div class="paper-texture p-0 relative author-card-wrapper" style="transform: rotate(0.5deg); cursor: pointer;">
-                            <div class="pin" style="left: 50%;"></div>
-                            <div class="aspect-[4/3] bg-paperDark overflow-hidden">
-                                <img src="images/ваня.jpg" alt="Черепанов Иван" class="w-full h-full object-cover opacity-90" style="filter: sepia(0.2) contrast(1.05);">
-                            </div>
-                            <div class="p-4 notebook-lines">
-                                <div class="pl-4 margin-line">
-                                    <p class="font-hand text-xl font-bold">Черепанов Иван</p>
-                                    <p class="text-inkLight text-sm">автор котиков, главный актёр озвучки, сценарист</p>
-                                    <p class="text-inkLight mt-2 text-sm">Это не человек, а котик. Он голос котика, и думает тоже как котик. Мечтает завести котика.</p>
-                                    <p class="text-inkLight/70 text-xs mt-1">vanya.che7428@gmail.com</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="paper-texture p-0 relative author-card-wrapper" style="transform: rotate(-0.7deg); cursor: pointer;">
-                            <div class="pin" style="left: 50%;"></div>
-                            <div class="aspect-[4/3] bg-paperDark overflow-hidden">
-                                <img src="images/федя.jpg" alt="Иванов Фёдор" class="w-full h-full object-cover opacity-90" style="filter: sepia(0.2) contrast(1.05);">
-                            </div>
-                            <div class="p-4 notebook-lines">
-                                <div class="pl-4 margin-line">
-                                    <p class="font-hand text-xl font-bold">Иванов Фёдор</p>
-                                    <p class="text-inkLight text-sm">создатель сцен, создатель 3-D моделей</p>
-                                    <p class="text-inkLight mt-2 text-sm">Святой человек который создаёт мир котиков и его детали. Если бы не его сцены, мультик бы не получился настолько детализированным.</p>
-                                    <p class="text-inkLight/70 text-xs mt-1"></p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="paper-texture p-0 relative author-card-wrapper" style="transform: rotate(1.1deg); cursor: pointer;">
-                            <div class="pin" style="left: 50%;"></div>
-                            <div class="aspect-[4/3] bg-paperDark overflow-hidden">
-                                <img src="images/даня.jpg" alt="Алексеев Данила" class="w-full h-full object-cover opacity-90" style="filter: sepia(0.2) contrast(1.05);">
-                            </div>
-                            <div class="p-4 notebook-lines">
-                                <div class="pl-4 margin-line">
-                                    <p class="font-hand text-xl font-bold">Алексеев Данила</p>
-                                    <p class="text-inkLight text-sm">режиссёр, оператор, монтажёр, звукорежиссёр</p>
-                                    <p class="text-inkLight mt-2 text-sm">Человек со стальными нервами который руководит съёмками и делает почти всю закадровую работу. Он может смонтировать более 500 кадров и не сойти с ума.</p>
-                                    <p class="text-inkLight/70 text-xs mt-1">fogokopohouobo@mail.ru</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="paper-texture p-0 relative author-card-wrapper" style="transform: rotate(-0.3deg); cursor: pointer;">
-                            <div class="pin" style="left: 50%;"></div>
-                            <div class="aspect-[4/3] bg-paperDark overflow-hidden">
-                                <img src="images/мария.jpg" alt="Сухова Мария" class="w-full h-full object-cover opacity-90" style="filter: sepia(0.2) contrast(1.05);">
-                            </div>
-                            <div class="p-4 notebook-lines">
-                                <div class="pl-4 margin-line">
-                                    <p class="font-hand text-xl font-bold">Сухова Мария</p>
-                                    <p class="text-inkLight text-sm">мотиватор, учительница по английскому</p>
-                                    <p class="text-inkLight mt-2 text-sm">Хоть со стороны роль этого человека кажется незначительной, но если бы не она, то мультик не пошёл бы дальше первой серии. Именно она нас всегда поддерживала.</p>
-                                    <p class="text-inkLight/70 text-xs mt-1">m.v.sukhova@gmail.com</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="paper-texture p-0 relative author-card-wrapper" style="transform: rotate(0.8deg); cursor: pointer;">
-                            <div class="pin" style="left: 50%;"></div>
-                            <div class="aspect-[4/3] bg-paperDark overflow-hidden">
-                                <img src="images/таля.jpg" alt="Иваненко Тальяна" class="w-full h-full object-cover opacity-90" style="filter: sepia(0.2) contrast(1.05);">
-                            </div>
-                            <div class="p-4 notebook-lines">
-                                <div class="pl-4 margin-line">
-                                    <p class="font-hand text-xl font-bold">Иваненко Тальяна</p>
-                                    <p class="text-inkLight text-sm">актёр озвучки, художник</p>
-                                    <p class="text-inkLight mt-2 text-sm">Ещё один голос для наших котиков, и самое главное, автор обложек для наших видео. Кроме того она и до вступления в нашу команду всегда нас поддерживала и помогала если мы просили.</p>
-                                    <p class="text-inkLight/70 text-xs mt-1">katkotket333@yandex.ru</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="paper-texture p-0 relative author-card-wrapper" style="transform: rotate(-0.5deg); cursor: pointer;">
-                            <div class="pin" style="left: 50%;"></div>
-                            <div class="aspect-[4/3] bg-paperDark overflow-hidden">
-                                <img src="images/поля.jpg" alt="Сухарева Полина" class="w-full h-full object-cover opacity-90" style="filter: sepia(0.2) contrast(1.05);">
-                            </div>
-                            <div class="p-4 notebook-lines">
-                                <div class="pl-4 margin-line">
-                                    <p class="font-hand text-xl font-bold">Сухарева Полина</p>
-                                    <p class="text-inkLight text-sm">помощник по сценам, актёр озвучки</p>
-                                    <p class="text-inkLight mt-2 text-sm">Она та кто помогает нам успевать в дедлайны. Раньше без неё мы всегда не успевали. Также она одна из тех кто давал нам мотивацию продолжать.</p>
-                                    <p class="text-inkLight/70 text-xs mt-1">sukhareva.pa@gmail.com</p>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5" id="authors-grid">
                     </div>
                 </div>
             </div>
@@ -640,7 +485,7 @@
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <!-- YouTube -->
-                <a href="https://www.youtube.com/@ADeafultDayOfADeafutCat" class="social-btn paper-texture p-5 block relative group" style="transform: rotate(0.8deg);">
+                <a href="https://www.youtube.com/@ADeafultDayOfADeafutCat" target="_blank" class="social-btn paper-texture p-5 block relative group" style="transform: rotate(0.8deg);">
                     <div class="flex items-center gap-4">
                         <div class="w-14 h-14 rounded-full bg-red-100 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
                             ▶️
@@ -657,7 +502,7 @@
                 </a>
 
                 <!-- Telegram -->
-                <a href="t.me/papercatchannel" class="social-btn paper-texture p-5 block relative group" style="transform: rotate(-1deg);">
+                <a href="t.me/papercatchannel" target="_blank" class="social-btn paper-texture p-5 block relative group" style="transform: rotate(-1deg);">
                     <div class="flex items-center gap-4">
                         <div class="w-14 h-14 rounded-full bg-blue-100 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
                             ✈️
@@ -723,73 +568,6 @@
   { id: 5, title: 'Космос', image: 'images/серия 5.png', description: 'A Deafult Day Of A Deafult Cat серия космос: Эта серия была специально для 2Г класса ко дню космонавтики (12 апреля). Мы смогли её снять за неделю (от задумки до показа). Это было очень нелегко но мы справились и отлично выступили перед младшеклассниками.', fullDescription: 'Пятая серия про котиков. Космос.', creationHistory: 'Эта серия была специально для 2Г класса ко дню космонавтики (12 апреля). Мы смогли её снять за неделю (от задумки до показа). Это было очень нелегко но мы справились и отлично выступили перед младшеклассниками.', videoUrl: 'https://archive.org/details/3_20260617_20260617_1500/космос.mp4' },
   { id: 6, title: 'Летние каникулы', image: 'images/серия 6.png', description: 'A Deafult Day Of A Deafult Cat серия 6: Летние каникулы. Это одна из самых сложных работ, в ней почти все сцены сделаны с нуля. Также в роли озвучки поучаствовало много человек, спасибо им. Ну а пока мы уходим на летний отдых, всем удачи и до скорой встречи.', fullDescription: 'Шестая серия про котиков. Летние каникулы.', creationHistory: 'Почти все сцены сделаны с нуля. В роли озвучки поучаствовало много человек, спасибо им. Ну а пока мы уходим на летний отдых, всем удачи и до скорой встречи.', videoUrl: 'https://archive.org/details/chat-gpt-image-19-2026-.-16-11-44' }
         ];
-
-        // ===== НОВОСТИ =====
-        // 🔧 Добавляй новые новости сюда — просто вставь новый объект в массив
-        // Формат: { date, title, text, image (опционально), badge }
-        const newsData = [
-  { date: '5 Июня 2026', title: 'Котики Behind The Scenes', text: 'Забыли написать: все сцены серии Behind The Scenes сняты. Монтируем.' },
-  { date: '29 Мая 2026', title: 'Roadmap серий', text: 'Roadmap следующих серий котиков: Мы можем изменять его ближе к выпускам серий, пока не радуйтесь, что знаете все про котиков. Конечно мы говорили что уйдём в отпуск: но потом решили, что он начнётся летом, а пока мы доделываем серии. 1. Серия #7: Behind The Scenes (Как мы снимаем котиков) — уже в работе, доснимаем сцены и доделываем котиков. 2. Серия #8: Аниме (Yameticudasaaaaaiiii-) — сюжет на стадии утверждения, сцены пока не начинали, сделали чуть-чуть котиков. Мы конечно немного вас обманули, ведь голосование (👆👆👆) решило, что следующая серия будет анимешной, но уж извините, идея серии Behind The Scenes всем очень понравилась, что мы решили сделать её первой. Также эта серия будет заменой серии к 1 сентября так как в ней присутствует школа. 3. Серия #9: Нового года не будет, Дед Мороз насмотрелся котиков (Сборник 3-5 новогодних историй по 1 минуте). Ну и потом Серия #10: ДР Котика (Окончание 1 сезона) — эта серия будет про то, как котик отмечает свой день рождения, выпустим мы её ровно в день выпуска первой серии. С этой серией закончится первый сезон котиков, а со вторым сезоном мы многое изменим в котиках. Что будет во 2 Сезоне не знаем, пока довольствуйтесь тем, что имеется.' },
-  { date: '25 Мая 2026', title: 'Котики Behind The Scenes', text: 'Следующая серия: Behind The Scenes или же как мы делаем котиков (не по настоящему): в целом просто прикольная серия, показывающая как котики делают котиков, обслуживают сцены, обслуживают наше оборудование, ну и конечно же КАКАО (☕️☕️☕️). С датой выпуска пока сказать не можем вообще так как сейчас мы технически на отдыхе, но потом снимать серии будет сложно всё лето. В целом это всё, сюжет почти получил утверждение, пока всё.' },
-  { date: '25 Мая 2026', title: 'О команде', text: 'Всем привет, и извините за то, что пропали. Лично Ваня занимался ОТДЫХОМ (урааааа) и написанием сюжета для следующей серии. С этого момента постараемся не забывать про канал. По подробнее про следующую серию напишем в следующем посте.' },
-  { date: '21 Мая 2026', title: 'Общее', text: 'Вчера я выразил все своё недовольство по поводу грамот и проектов, сегодня нам ВЫДАЛИ ЭТИ ГРАМОТЫ. Спасибо большое Марии Владимировне, она увидела наш пост и сделала нам грамоты, все душевные травмы вылечены, спасибо!!!', image: 'images/новость 15.jpg' },
-  { date: '20 Мая 2026', title: 'Общее', text: 'Хочу выразиться насчёт сегодняшнего награждения (некоторые не шарят, объясняю: сегодня была торжественная линейка лол). Единственное, для чего я хотел идти на линейку, так это для того, чтобы наша команда получила бы награду за котиков (сами подумайте, проект больше всех остальных из 6А класса вместе взятых), как обычно бывает у меня ожидания не оправдались. Котиков вообще НЕТУ В СПИСКАХ ПРОЕКТОВ, то есть это равносильно тому, что котиков не было ВООБЩЕ, они как lost media, реально. Помимо этого нам все говорили молодцы, хорошо... Мы надеялись, нет я был даже уверен, что мы хотя бы будем призёрами, а то и победителями. Нет❌. Зато мы получили награду за проект метеостанции, это хорошо, НО КОТИКИ ЛУЧШЕ!!!!' },
-  { date: '20 Мая 2026', title: 'Котики лето', text: 'Можем не успеть дропнуть летнюю серию к 11:20, скинем к 11:45.' },
-  { date: '20 Мая 2026', title: 'О команде', text: 'Мы уходим на летний отдых на весь июнь, но канал в тг будем вести.' },
-  { date: '19 Мая 2026', title: 'Котики лето', text: 'Наконец-то закончили снимать летнюю серию. Выпуск ЗАВТРА, в 11:20. Ждём.' },
-  { date: '17 Мая 2026', title: 'Котики лето', text: 'Сегодня будем делать летнюю серию. Надо снять ВСЕ сцены, сделать большинство декораций и конечно же котиков 😣😐⚰️🔫. Готовим партию какао к разгрузке.' },
-  { date: '6 Мая 2026', title: 'О команде', text: 'Вообще то мы все в первый раз за пол-учебного года отдыхаем :(' },
-  { date: '6 Мая 2026', title: 'Будущее', text: 'Зацените, серия после летней похоже будет аниме 🇯🇵', image: 'images/новость 8.jpg' },
-  { date: '5 Мая 2026', title: 'Котики МЦКО', text: 'Котики МЦКО готовы! Теперь начинаем работать над летней серией.', image: 'images/новость 7.png' },
-  { date: '4 Мая 2026', title: 'Наш канал в телеграм', text: 'Ураааа! 5 подписчиков!' },
-  { date: '4 Мая 2026', title: 'Котики МЦКО', text: 'Серия скоро выйдет, сегодня доделаем последние правки и выложим.' },
-  { date: '1 Мая 2026', title: 'Котики МЦКО', text: 'Вот как выглядит серия котиков когда мы её монтируем. Press F, мышка Дани.', image: 'images/новость 4.jpg' },
-  { date: '1 Мая 2026', title: 'Котики МЦКО', text: 'Закончили озвучку котиков, теперь монтировать.' },
-  { date: '1 Мая 2026', title: 'Котики МЦКО', text: 'Сцена класса, в котором писал котик МЦКО. Кровь это кетчуп.', image: 'images/новость 2.jpg' },
-  { date: '1 Мая 2026', title: 'Котики МЦКО', text: 'Сегодня мы наконец-то досняли МЦКО. Теперь монтаж.' }
-        ];
-
-        // Render news
-        function renderNews() {
-            const container = document.getElementById('news-container');
-            container.innerHTML = '';
-            const rotations = ['-0.3deg', '0.4deg', '-0.6deg', '0.6deg'];
-            newsData.forEach((item, index) => {
-                const hasImage = item.image ? true : false;
-                const rot = rotations[index % rotations.length];
-                const div = document.createElement('div');
-
-                if (hasImage) {
-                    const hasTape = index === 0;
-                    div.className = 'paper-texture p-5 md:p-6 relative' + (hasTape ? ' torn-edge' : '');
-                    div.style.transform = `rotate(${rot})`;
-                    div.innerHTML = `
-                        ${hasTape ? '<div class="tape tape-top"></div>' : ''}
-                        <div class="flex flex-col md:flex-row gap-4">
-                            <div class="md:w-48 flex-shrink-0">
-                                <img src="${item.image}" alt="Новость" class="w-full rounded-sm opacity-90" style="filter: sepia(0.15);">
-                            </div>
-                            <div>
-                                <span class="text-sm text-inkLight/60">${item.date}</span>
-                                <h3 class="font-hand text-2xl font-bold mt-1">${item.title}</h3>
-                                <p class="text-inkLight mt-2">${item.text}</p>
-                            </div>
-                        </div>
-                    `;
-                } else {
-                    div.className = 'paper-texture p-5 md:p-6 max-w-lg relative';
-                    div.style.transform = `rotate(${rot})`;
-                    div.innerHTML = `
-                        <span class="text-sm text-inkLight/60">${item.date}</span>
-                        <h3 class="font-hand text-2xl font-bold mt-1">${item.title}</h3>
-                        <p class="text-inkLight mt-2">${item.text}</p>
-                    `;
-                }
-                container.appendChild(div);
-            });
-        }
-
-        // ===== СЕРИИ =====
         // 🔧 Добавляй новые серии сюда — просто вставь новый объект в массив
         // Формат: { id, title, image, description, fullDescription, creationHistory, videoUrl }
         // id: номер по порядку
