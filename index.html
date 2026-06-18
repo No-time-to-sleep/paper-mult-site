@@ -201,6 +201,18 @@
             display: flex;
             align-items: flex-start;
         }
+        /* Desktop scale */
+        @media (min-width: 1280px) {
+            body { font-size: 1.25rem; }
+            .font-hand { font-size: 1.4em; }
+            .tab-btn { font-size: 1.3rem !important; }
+            .max-w-5xl { max-width: 80rem !important; }
+            .text-lg { font-size: 1.3rem !important; }
+        }
+
+        /* Episode card min height */
+        .episode-card .notebook-lines { min-height: 140px; }
+        .episode-card .p-4.notebook-lines { min-height: 140px; }
     </style>
 </head>
 <body class="min-h-screen font-sans text-ink" style="font-family: system-ui, -apple-system, sans-serif;">
@@ -244,9 +256,6 @@
                 </button>
                 <button class="tab-btn font-sans text-base md:text-lg px-3 md:px-5 py-2 rounded-sm hover:bg-orange-100 transition-colors" data-tab="authors">
                     Об авторах
-                </button>
-                <button class="tab-btn font-sans text-base md:text-lg px-3 md:px-5 py-2 rounded-sm hover:bg-amber-100 transition-colors" data-tab="history">
-                    История создания
                 </button>
                 <button class="tab-btn font-sans text-base md:text-lg px-3 md:px-5 py-2 rounded-sm hover:bg-yellow-100 transition-colors" data-tab="social">
                     Соцсети
@@ -502,9 +511,9 @@
             <!-- Block 4: Technology -->
             <div class="paper-texture p-6 md:p-8 relative" style="transform: rotate(0.2deg);">
                 <div class="pin" style="left: 70%;"></div>
-                <h3 class="font-hand text-2xl font-bold mb-4">Как создаётся магия</h3>
+                <h3 class="font-hand text-2xl font-bold mb-4">История создания</h3>
                 <p class="text-inkLight leading-relaxed">
-                    Проект появился когда Влада нашла картинку с котиком в Pinterest, Ваня от скуки сделал кучу таких котиков, Даня и Федя предложили снять и мы решили податься на конкурс проектов. После этого мы показали мультик нашей учительнице английского и она стала первым и самым важным нашим фанатом, и мы стали делать мультики. Потом всё больше людей вокруг начало интересоваться проектом и наш штаб увеличился. Теперь мы в новом составе продолжаем делать мультики.
+                    Проект появился когда Влада нашла картинку с котиком в Pinterest, Ваня от скуки сделал кучу таких котиков, Даня и Федя предложили снять и мы решили податься на конкурс проектов, после этого мы показали мультик нашей учительнице английского и она стала первым и самым важным нашим фанатом, и мы стали делать мультики, потом всё больше людей вокруг начало интересоваться проектом и наш штаб увеличился, теперь мы в новом составе продолжаем делать мультики.
                 </p>
             </div>
         </div>
@@ -524,55 +533,91 @@
                         Над проектом старалось не так много людей, но они все безумно важны в проекте. Также здесь не написаны те кто озвучивал (их очень много), но вы также невероятно помогли проекту.
                     </p>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                        <div class="paper-texture p-4 relative" style="transform: rotate(0.5deg);">
-                            <p class="font-hand text-xl font-bold">Черепанов Иван</p>
-                            <p class="text-inkLight/70 text-sm">автор котиков, главный актёр озвучки, сценарист</p>
-                            <p class="text-inkLight mt-2 text-sm">Это не человек, а котик. Он голос котика, и думает тоже как котик. Мечтает завести котика.</p>
+                        <div class="paper-texture p-0 relative author-card-wrapper" style="transform: rotate(0.5deg); cursor: pointer;">
+                            <div class="pin" style="left: 50%;"></div>
+                            <div class="aspect-[4/3] bg-paperDark overflow-hidden">
+                                <img src="images/ваня.jpg" alt="Черепанов Иван" class="w-full h-full object-cover opacity-90" style="filter: sepia(0.2) contrast(1.05);">
+                            </div>
+                            <div class="p-4 notebook-lines">
+                                <div class="pl-4 margin-line">
+                                    <p class="font-hand text-xl font-bold">Черепанов Иван</p>
+                                    <p class="text-inkLight text-sm">автор котиков, главный актёр озвучки, сценарист</p>
+                                    <p class="text-inkLight mt-2 text-sm">Это не человек, а котик. Он голос котика, и думает тоже как котик. Мечтает завести котика.</p>
+                                    <p class="text-inkLight/70 text-xs mt-1">vanya.che7428@gmail.com</p>
+                                </div>
+                            </div>
                         </div>
-                        <div class="paper-texture p-4 relative" style="transform: rotate(-0.7deg);">
-                            <p class="font-hand text-xl font-bold">Иванов Фёдор</p>
-                            <p class="text-inkLight/70 text-sm">создатель сцен, создатель 3-D моделей</p>
-                            <p class="text-inkLight mt-2 text-sm">Святой человек который создаёт мир котиков и его детали. Если бы не его сцены, мультик бы не получился настолько детализированным.</p>
+                        <div class="paper-texture p-0 relative author-card-wrapper" style="transform: rotate(-0.7deg); cursor: pointer;">
+                            <div class="pin" style="left: 50%;"></div>
+                            <div class="aspect-[4/3] bg-paperDark overflow-hidden">
+                                <img src="images/федя.jpg" alt="Иванов Фёдор" class="w-full h-full object-cover opacity-90" style="filter: sepia(0.2) contrast(1.05);">
+                            </div>
+                            <div class="p-4 notebook-lines">
+                                <div class="pl-4 margin-line">
+                                    <p class="font-hand text-xl font-bold">Иванов Фёдор</p>
+                                    <p class="text-inkLight text-sm">создатель сцен, создатель 3-D моделей</p>
+                                    <p class="text-inkLight mt-2 text-sm">Святой человек который создаёт мир котиков и его детали. Если бы не его сцены, мультик бы не получился настолько детализированным.</p>
+                                    <p class="text-inkLight/70 text-xs mt-1"></p>
+                                </div>
+                            </div>
                         </div>
-                        <div class="paper-texture p-4 relative" style="transform: rotate(1.1deg);">
-                            <p class="font-hand text-xl font-bold">Алексеев Данила</p>
-                            <p class="text-inkLight/70 text-sm">режиссёр, оператор, монтажёр, звукорежиссёр</p>
-                            <p class="text-inkLight mt-2 text-sm">Человек со стальными нервами который руководит съёмками и делает почти всю закадровую работу. Он может смонтировать более 500 кадров и не сойти с ума.</p>
+                        <div class="paper-texture p-0 relative author-card-wrapper" style="transform: rotate(1.1deg); cursor: pointer;">
+                            <div class="pin" style="left: 50%;"></div>
+                            <div class="aspect-[4/3] bg-paperDark overflow-hidden">
+                                <img src="images/даня.jpg" alt="Алексеев Данила" class="w-full h-full object-cover opacity-90" style="filter: sepia(0.2) contrast(1.05);">
+                            </div>
+                            <div class="p-4 notebook-lines">
+                                <div class="pl-4 margin-line">
+                                    <p class="font-hand text-xl font-bold">Алексеев Данила</p>
+                                    <p class="text-inkLight text-sm">режиссёр, оператор, монтажёр, звукорежиссёр</p>
+                                    <p class="text-inkLight mt-2 text-sm">Человек со стальными нервами который руководит съёмками и делает почти всю закадровую работу. Он может смонтировать более 500 кадров и не сойти с ума.</p>
+                                    <p class="text-inkLight/70 text-xs mt-1">fogokopohouobo@mail.ru</p>
+                                </div>
+                            </div>
                         </div>
-                        <div class="paper-texture p-4 relative" style="transform: rotate(-0.3deg);">
-                            <p class="font-hand text-xl font-bold">Сухова Мария</p>
-                            <p class="text-inkLight/70 text-sm">мотиватор, учительница по английскому</p>
-                            <p class="text-inkLight mt-2 text-sm">Хоть со стороны роль этого человека кажется незначительной, но если бы не она, то мультик не пошёл бы дальше первой серии. Именно она нас всегда поддерживала.</p>
+                        <div class="paper-texture p-0 relative author-card-wrapper" style="transform: rotate(-0.3deg); cursor: pointer;">
+                            <div class="pin" style="left: 50%;"></div>
+                            <div class="aspect-[4/3] bg-paperDark overflow-hidden">
+                                <img src="images/мария.jpg" alt="Сухова Мария" class="w-full h-full object-cover opacity-90" style="filter: sepia(0.2) contrast(1.05);">
+                            </div>
+                            <div class="p-4 notebook-lines">
+                                <div class="pl-4 margin-line">
+                                    <p class="font-hand text-xl font-bold">Сухова Мария</p>
+                                    <p class="text-inkLight text-sm">мотиватор, учительница по английскому</p>
+                                    <p class="text-inkLight mt-2 text-sm">Хоть со стороны роль этого человека кажется незначительной, но если бы не она, то мультик не пошёл бы дальше первой серии. Именно она нас всегда поддерживала.</p>
+                                    <p class="text-inkLight/70 text-xs mt-1">m.v.sukhova@gmail.com</p>
+                                </div>
+                            </div>
                         </div>
-                        <div class="paper-texture p-4 relative" style="transform: rotate(0.8deg);">
-                            <p class="font-hand text-xl font-bold">Иваненко Тальяна</p>
-                            <p class="text-inkLight/70 text-sm">актёр озвучки, художник</p>
-                            <p class="text-inkLight mt-2 text-sm">Ещё один голос для наших котиков, и самое главное, автор обложек для наших видео. Кроме того она и до вступления в нашу команду всегда нас поддерживала и помогала если мы просили.</p>
+                        <div class="paper-texture p-0 relative author-card-wrapper" style="transform: rotate(0.8deg); cursor: pointer;">
+                            <div class="pin" style="left: 50%;"></div>
+                            <div class="aspect-[4/3] bg-paperDark overflow-hidden">
+                                <img src="images/таля.jpg" alt="Иваненко Тальяна" class="w-full h-full object-cover opacity-90" style="filter: sepia(0.2) contrast(1.05);">
+                            </div>
+                            <div class="p-4 notebook-lines">
+                                <div class="pl-4 margin-line">
+                                    <p class="font-hand text-xl font-bold">Иваненко Тальяна</p>
+                                    <p class="text-inkLight text-sm">актёр озвучки, художник</p>
+                                    <p class="text-inkLight mt-2 text-sm">Ещё один голос для наших котиков, и самое главное, автор обложек для наших видео. Кроме того она и до вступления в нашу команду всегда нас поддерживала и помогала если мы просили.</p>
+                                    <p class="text-inkLight/70 text-xs mt-1">katkotket333@yandex.ru</p>
+                                </div>
+                            </div>
                         </div>
-                        <div class="paper-texture p-4 relative" style="transform: rotate(-0.5deg);">
-                            <p class="font-hand text-xl font-bold">Сухарева Полина</p>
-                            <p class="text-inkLight/70 text-sm">помощник по сценам, актёр озвучки</p>
-                            <p class="text-inkLight mt-2 text-sm">Она та кто помогает нам успевать в дедлайны. Раньше без неё мы всегда не успевали. Также она одна из тех кто давал нам мотивацию продолжать.</p>
+                        <div class="paper-texture p-0 relative author-card-wrapper" style="transform: rotate(-0.5deg); cursor: pointer;">
+                            <div class="pin" style="left: 50%;"></div>
+                            <div class="aspect-[4/3] bg-paperDark overflow-hidden">
+                                <img src="images/поля.jpg" alt="Сухарева Полина" class="w-full h-full object-cover opacity-90" style="filter: sepia(0.2) contrast(1.05);">
+                            </div>
+                            <div class="p-4 notebook-lines">
+                                <div class="pl-4 margin-line">
+                                    <p class="font-hand text-xl font-bold">Сухарева Полина</p>
+                                    <p class="text-inkLight text-sm">помощник по сценам, актёр озвучки</p>
+                                    <p class="text-inkLight mt-2 text-sm">Она та кто помогает нам успевать в дедлайны. Раньше без неё мы всегда не успевали. Также она одна из тех кто давал нам мотивацию продолжать.</p>
+                                    <p class="text-inkLight/70 text-xs mt-1">sukhareva.pa@gmail.com</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ========== ИСТОРИЯ СОЗДАНИЯ ========== -->
-        <div id="history" class="section-page">
-            <div class="mb-6">
-                <h2 class="font-hand text-3xl md:text-4xl font-bold inline-block relative">
-                    История создания
-                    <span class="absolute -bottom-1 left-0 right-0 h-1 bg-redPin/30 rounded"></span>
-                </h2>
-            </div>
-            <div class="paper-texture p-6 md:p-8 relative notebook-lines" style="transform: rotate(0.3deg);">
-                <div class="tape tape-top" style="width: 90px;"></div>
-                <div class="pl-4 margin-line space-y-4">
-                    <p class="text-lg leading-relaxed text-inkLight">
-                        Проект появился когда Влада нашла картинку с котиком в Pinterest, Ваня от скуки сделал кучу таких котиков, Даня и Федя предложили снять и мы решили податься на конкурс проектов, после этого мы показали мультик нашей учительнице английского и она стала первым и самым важным нашим фанатом, и мы стали делать мультики, потом всё больше людей вокруг начало интересоваться проектом и наш штаб увеличился, теперь мы в новом составе продолжаем делать мультики.
-                    </p>
                 </div>
             </div>
         </div>
@@ -967,9 +1012,41 @@
             }
         }
 
+        // Image lightbox
+        const lightbox = document.getElementById('image-lightbox');
+        const lightboxImg = document.getElementById('lightbox-image');
+        const lightboxClose = document.getElementById('lightbox-close');
+
+        document.addEventListener('click', function(e) {
+            const target = e.target.closest('img');
+            if (target && target.closest('.episode-card, #authors, #news-container, .author-card-wrapper')) {
+                lightboxImg.src = target.src;
+                lightbox.classList.remove('hidden');
+                lightbox.classList.add('flex');
+            }
+        });
+
+        lightboxClose.addEventListener('click', function() {
+            lightbox.classList.add('hidden');
+            lightbox.classList.remove('flex');
+        });
+
+        lightbox.addEventListener('click', function(e) {
+            if (e.target === lightbox) {
+                lightbox.classList.add('hidden');
+                lightbox.classList.remove('flex');
+            }
+        });
+
         // Initialize
         renderEpisodes();
         renderNews();
     </script>
+    <!-- Image Lightbox -->
+    <div id="image-lightbox" class="fixed inset-0 z-50 hidden items-center justify-center p-4" style="background: rgba(0,0,0,0.85); backdrop-filter: blur(5px);">
+        <button id="lightbox-close" class="absolute top-4 right-6 text-5xl text-white hover:text-redPin transition-colors z-10">&times;</button>
+        <img id="lightbox-image" src="" alt="Просмотр" class="max-w-[90vw] max-h-[90vh] object-contain rounded-sm shadow-2xl">
+    </div>
+
 </body>
 </html>
