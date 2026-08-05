@@ -999,7 +999,6 @@
             const btn = document.getElementById('submit-btn');
             const successMsg = document.getElementById('form-success');
 
-            // Собираем данные
             const data = new FormData(form);
             data.append('_captcha', 'false');
             data.append('_subject', 'Новое сообщение с Бумажный Мульт');
@@ -1010,10 +1009,15 @@
 
                 const res = await fetch('https://formsubmit.co/ajax/fogokopohouobo@mail.ru', {
                     method: 'POST',
+                    headers: { 'Accept': 'application/json' },
                     body: data
                 });
 
-                if (!res.ok) throw new Error('Ошибка сервера');
+                const json = await res.json();
+
+                if (json.success !== 'true') {
+                    throw new Error(json.message || 'Ошибка сервера');
+                }
 
                 successMsg.classList.remove('hidden');
                 form.reset();
